@@ -23,8 +23,19 @@ public class StudentService {
                 .orElseThrow(()-> new RuntimeException("id not found"));
     }
 
+    public Student create (Student student) {
+        return studentRepository.save(student);
+    }
 
+    public Student update (Long id, Student student) {
+        Student oldStudent = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("id not found"));
+        oldStudent.setFirstName(student.getFirstName());
+        oldStudent.setLastName(student.getLastName());
+        return studentRepository.save(oldStudent);
+    }
 
-
+    public void delete (Long id) {
+        studentRepository.deleteById(id);
+    }
 
 }
